@@ -1,0 +1,110 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+html, body {
+    font-weight: 300;
+    font-size: 20px;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+}
+body{
+    background-color: #330055;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1000'%3E%3Cg %3E%3Ccircle fill='%23330055' cx='50' cy='0' r='50'/%3E%3Cg fill='%2336065d' %3E%3Ccircle cx='0' cy='50' r='50'/%3E%3Ccircle cx='100' cy='50' r='50'/%3E%3C/g%3E%3Ccircle fill='%23380d64' cx='50' cy='100' r='50'/%3E%3Cg fill='%233b136c' %3E%3Ccircle cx='0' cy='150' r='50'/%3E%3Ccircle cx='100' cy='150' r='50'/%3E%3C/g%3E%3Ccircle fill='%233d1a74' cx='50' cy='200' r='50'/%3E%3Cg fill='%233f1f7c' %3E%3Ccircle cx='0' cy='250' r='50'/%3E%3Ccircle cx='100' cy='250' r='50'/%3E%3C/g%3E%3Ccircle fill='%23412584' cx='50' cy='300' r='50'/%3E%3Cg fill='%23422b8d' %3E%3Ccircle cx='0' cy='350' r='50'/%3E%3Ccircle cx='100' cy='350' r='50'/%3E%3C/g%3E%3Ccircle fill='%23433195' cx='50' cy='400' r='50'/%3E%3Cg fill='%2344369e' %3E%3Ccircle cx='0' cy='450' r='50'/%3E%3Ccircle cx='100' cy='450' r='50'/%3E%3C/g%3E%3Ccircle fill='%23443ca6' cx='50' cy='500' r='50'/%3E%3Cg fill='%234442af' %3E%3Ccircle cx='0' cy='550' r='50'/%3E%3Ccircle cx='100' cy='550' r='50'/%3E%3C/g%3E%3Ccircle fill='%234348b8' cx='50' cy='600' r='50'/%3E%3Cg fill='%23424ec0' %3E%3Ccircle cx='0' cy='650' r='50'/%3E%3Ccircle cx='100' cy='650' r='50'/%3E%3C/g%3E%3Ccircle fill='%234054c9' cx='50' cy='700' r='50'/%3E%3Cg fill='%233d5ad2' %3E%3Ccircle cx='0' cy='750' r='50'/%3E%3Ccircle cx='100' cy='750' r='50'/%3E%3C/g%3E%3Ccircle fill='%233a60db' cx='50' cy='800' r='50'/%3E%3Cg fill='%233566e4' %3E%3Ccircle cx='0' cy='850' r='50'/%3E%3Ccircle cx='100' cy='850' r='50'/%3E%3C/g%3E%3Ccircle fill='%232f6ced' cx='50' cy='900' r='50'/%3E%3Cg fill='%232673f6' %3E%3Ccircle cx='0' cy='950' r='50'/%3E%3Ccircle cx='100' cy='950' r='50'/%3E%3C/g%3E%3Ccircle fill='%231779ff' cx='50' cy='1000' r='50'/%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: contain;
+}
+
+/*HEADER'S STYLE*/
+
+.banner{
+    height: 100vh;
+}
+
+.nav{
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 8vh;
+    width: 100%;
+}
+
+.logo{
+    padding: 20px 50px;
+}
+
+.logo img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.nav-links{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding-left: 20%;
+}
+
+.nav-links li{
+    list-style: none;
+}
+
+.nav-links a{
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-decoration: none;
+    color: white;
+    font-size: 25px;
+}
+
+.banner video{
+    position:absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.content{
+    position: relative;
+    z-index: 1; 
+    margin: 0 auto;
+    text-align: center;
+    top: 10%;
+}
+
+.content h1{
+    margin: 0;
+    padding: 0;
+    font-size: 4.5em;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: white;
+}
+
+.content a{
+    display: inline-block;
+    font-size: 20px;
+    background: #fff;
+    padding: 10px 30px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: 10px;
+    color: #111;
+    letter-spacing: 2px;
+    transition: 0.2s;
+    border-radius: 200px;
+}
+
+.content a:hover{
+    color: #03a9f4;
+    letter-spacing: 3px;
+}
