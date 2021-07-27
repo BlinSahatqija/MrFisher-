@@ -1,0 +1,197 @@
+@media (max-width: 1125px) {
+    .navbar-links a {
+        font-size: 20px;
+    }
+    .content h1{
+        font-size: 3.5em;
+    }
+}
+
+
+@media (max-width: 1010px) {
+    .content h1{
+        font-size: 3.0em;
+    }
+
+    .navbar-links a:hover:after{ width: 0;}
+
+    .navbar-links ul {
+        padding: 0;
+        margin: 0;}
+
+    .navbar-links li a:hover {
+        background-color: rgba(0,0,0,.5);
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        background: rgba(0,0,0,.1); 
+    }
+
+    .toggle-button {
+        display: flex;
+        transition: ease-in 3s;
+    }
+
+    .navbar-links {
+        display: none;
+        width: 100%;
+    }
+
+    .navbar-links ul {
+        width: 100%;
+        flex-direction: column;
+        background-color: #333;
+        background: rgba(0,0,0,.5);
+    }
+
+    .navbar-links ul li {
+        text-align: center;
+    }
+
+    .navbar-links ul li a {
+        padding: .5rem 1rem;
+    }
+
+    .navbar-links.active {
+        display: flex;
+    }
+}
+
+@media (max-width: 768px){
+    .logo img, cite img{
+        width: 100px;
+        height: 100px;
+    }
+
+    .posts, .third-container, .reviews-section, .city-feature,
+    .cities-list, .reviews-list, .footer-nav, .footer-nav-1, .city{
+        flex-direction: column;
+    }
+
+    .footer-nav-1 a:hover:after, .cities-section h2:after, .reviews-section h2:after {
+        width: 0;
+    }   
+
+    .cities-list, .third-container, .city, .reviews-list,.review-item {
+        align-items: center;
+    }
+
+    .second h2, .reviews-section h2, .cities-section h2 {
+        font-size: 140%;
+    }
+
+    .bubbles{
+        display: none;
+    }
+
+    .content h1{  
+        font-size: 2.0em;   
+    }
+
+    .content a{
+        margin-top: 65px;
+    }
+
+    .content a, .location a{
+        font-size: 18px;
+    }
+
+    .second{
+        height: auto;
+        margin: 80px 0;
+    }
+
+    .long-copy{
+        font-size: 19px;
+    }
+
+    .third-container{
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .location{
+        width: 380px;
+        height: 500px;
+    }
+
+    .location, .slider{
+        margin: 10px 0;
+    }
+
+    .location h1{
+        font-size: 28px;
+    }
+
+    .location h2{
+        font-size: 18px;
+    }
+
+    .slider img:hover, .city img:hover{
+        transform: scale(1);
+    }
+
+    .review-item{
+        display: flex;
+        flex-direction: column;
+        margin: 40px 0;
+    }
+
+    .city {
+        margin: 20px 0;
+    }
+
+    .city img {
+        opacity: 1;
+        border: 3px solid black;
+    }
+
+    .booking{
+        width: 120px;
+        height: 70px;
+    }
+    .booking:hover{
+        box-shadow: inset 120px 0 0 0  white;}
+
+  .footer-nav-1 a{
+        font-size: 25px;
+        font-weight: 500;
+    }
+
+    .footer-nav-1 a:hover{
+        color: #00aced;;
+    }
+
+    #footer-nav-2{
+        flex-direction: row;
+    }
+
+    .footer-nav{
+        height: auto;
+    }
+
+    .footer-nav-1 li{
+        margin: 20px 0;
+    }
+
+    .modal-box{
+        width: 320px;
+    }
+}
+
+@media (max-width: 600px){
+    .content h1{
+        font-size: 1.7em;
+    }
+}
+
+@media (max-width: 500px){
+    .content h1{
+        font-size: 1.7em;
+    }
+    .second h2, .reviews-section h2, .cities-section h2 {
+        font-size: 110%;
+    }
+}

@@ -11,7 +11,7 @@
     
     <div class="container">
     <h1>Not available yet, coming soon...</h1>
-    <a href="index.html">Go Back</a>
+    <a href="index.php">Go Back</a>
     </div>
 </body>
 </html>

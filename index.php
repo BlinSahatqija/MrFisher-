@@ -1,36 +1,122 @@
+<!-- PHP PER SIGNUP -->
+<?php
+    session_start();
+
+    $errorName = "";
+    $errorEmail = "";
+
+    function test_input($data) {
+      $data = trim($data);
+      $data = stripslashes($data);
+      $data = htmlspecialchars($data);
+      return $data;
+    }
+
+    if(isset($_SESSION['user_id'])){
+        header("Location: index.php");
+    }
+    require 'db.php';
+
+    if(isset($_POST['signup'])){
+        
+        if(empty($_POST['signup-username'])){
+            $errorName = "Write your username";
+        }
+        
+        if(empty($_POST['signup-email'])){
+            $errorEmail = "Email is required";
+        }else{
+            $email = test_input($_POST['signup-email']);
+            if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+                $errorEmail = "This email format is invalid!";
+            }
+        }
+        
+        $password = password_hash($_POST['signup-password'], PASSWORD_BCRYPT);
+        
+        $sql = 'INSERT INTO users (name, email, password) values (:name, :email, :password)';
+        $query = $pdo->prepare($sql);
+        $query->bindParam('name', $name);
+        $query->bindParam('email',$email);
+        $query->bindParam('password',$password);
+        
+        if($query->execute()){
+            echo '<script>alert("Signed up successfully");</script>';
+        }else{
+            echo '<script>alert("There was a problem while siging up");</script>';
+            header("Location: index.php");
+        }
+    }
+?>
+
+<!-- PHP PER LOG IN -->
+<?php
+    if(isset($_SESSION['user_id'])){
+        header("Location: index.php");
+    }
+    require 'db.php';
+       
+    if(isset($_POST['login'])):
+        $email=$_POST['login-email'];
+        $password=$_POST['login-password'];
+        
+        $query = $pdo->prepare('SELECT id, name, email, password FROM users WHERE email=:email');
+        $query->bindParam(':email', $email);
+        $query->execute();
+        
+        $user = $query->fetch();
+        
+        if(count($user)>0 && password_verify($password, $user['password'])){
+            $_SESSION['user_id']=$user['id'];
+            $_SESSION['name']=$user['name'];
+
+            echo '<script>alert("Logged in");</script>';
+            header("Location: index.php");
+        }else{
+            echo '<script>alert("Email  or Passowrd is wrong!");</script>';
+        }
+    endif;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mediaQuery.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" type="text/css" href="ionicons.min.css">
-    <title>Video background</title>
+    <title>Mr Fisher</title>
 </head>
 <body>
     <div class="banner">
-        <!-- <iframe src="../media/wp-audio.mp3" type="audio/mp3" allow="autoplay" id="audio" style="display:none"></iframe> -->
-        <audio autoplay>
+        <audio autoplay >
             <source src="media/wp-audio.mp3" type="audio/mp3">
         </audio>
-        <div class="nav">
-            <div class="logo">
-                <img src="media/logo.jpg">
-            </div>
-            <ul class="nav-links">
-                <li><a href="#second">How it works</a></li>
-                <li><a href="#cities">Our locations</a></li>
-                <li><a href="#" class="contact-btn">Contact Us</a></li>
-                <li><a href="#" class="login-btn">Login</a></li>
+        <nav class="navbar">
+        <div class="logo">
+            <img src="media/logo.jpg">
+        </div>
+        <a href="#" class="toggle-button">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </a>
+        <div class="navbar-links">
+            <ul>
+                <li><a href="#second" onmousemove="bubbleSound.play()">How it works</a></li>
+                <li><a href="#cities" onmousemove="bubbleSound.play()">Our locations</a></li>
+                <li><a href="#" class="contact-btn" onmousemove="bubbleSound.play()">Contact Us</a></li>
+                <li><a href="#" class="login-btn" onmousemove="bubbleSound.play()">Login</a></li>
             </ul>
         </div>
-        <!-- <div class="overlay"></div> -->
+    </nav>
         <video muted autoplay loop>
             <source src="media/home-fm.mp4" type="video/mp4">
         </video>
         <div class="content" data-aos="fade-up">
           <h1>Welcome to <br>Mr Fisher Restaurant</h1>
-          <a href="#second">Show me more</a>
+          <a href="#second" onclick="bubbleSound.play()">Show me more</a>
         </div>
         <div class="bubbles">
             <img src="media/bubble.png">
@@ -133,7 +219,7 @@
            
             <div class="review-item"  data-aos="fade-right">
                 "Mr Fisher is just awesome! A close friend of mine recommended this place to me. I'm wasn't into sea food that much at first but now I can't live without visiting it weekly!"
-                <cite><img src=media/AlbertoDuncan.jpeg>Alberto Duncan</cite>
+                <cite><img src="media/AlbertoDuncan.jpeg">Alberto Duncan</cite>
             </div>
             <div class="review-item"  data-aos="fade-up">
                "Inexpensive, healthy and great-tasting meals, delivered right to my home. We have lots of sea food restaurants here in Prishtina, but no one comes even close to Mr Fisher."
@@ -144,16 +230,7 @@
                 <cite><img src="media/MiltonChapman.jpeg">Milton Chapman</cite>
             </div>
         </div>
-        
     </section>
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script type="text/javascript">
-    $('header').mousemove(function(a){
-        var mouseX=(a.pageX*-1/10);
-        var mouseY=(a.pageY*-1/10);
-        $(this).css('background-position', mouseX+'px ' +mouseY+'px')
-    })
-    </script>
     <section class="cities-section" id="cities">
         <img class="bg-img" src="media/blue-bg2.png">
         <div class="overlay"></div>
@@ -217,7 +294,7 @@
                 </div>
             </div>
             <div class="city"  data-aos="fade-left">
-                <img src="media/gjilan.jpg" alt="Gjilan">
+                <img src="media/gjilan.jpg" alt="Gjialn">
                 <h3>Gjilan</h3>
                 <div class="city-feature">
                     <i class="ion-ios-person icon-small"></i>
@@ -243,8 +320,8 @@
                     <li><a href="#second">About us</a></li>
                     <li><a href="#cities" class="booking-btn">Bookings</a></li>
                     <li><a class="contact-btn">Contact Us</a></li>
-                    <li><a href="comingSoon.html">iOS App</a></li>
-                    <li><a href="comingSoon.html">Android App</a></li>
+                    <li><a href="comingSoon.php">iOS App</a></li>
+                    <li><a href="comingSoon.php">Android App</a></li>
                 </ul>
                 <ul class="footer-nav-1" id="footer-nav-2">
                     <li><a href="https://www.facebook.com/"><i class="ion-social-facebook"></i></a></li>
@@ -253,14 +330,11 @@
                 </ul>
         </div>
     </footer>
-
-
-
     <div class="login-modal">
         <div class="modal-box">
             <div class="modal-body">
                 <h3>Log In</h3>
-                <form class="login-form" name="loginForm" onsubmit="return validateLogin(this);">
+                <form action="index.php" method="post" class="login-form" name="loginForm" onsubmit="return validateLogin(this);">
                     <div class="form-control">
                         <label for="email">Email</label>
                         <input type="email" id="login-email" name="login-email">
@@ -276,7 +350,6 @@
             </div>
             <div class="modal-footer">
                 <p>Don't have an account? <a class="signup-btn" href="#">Sign Up</a></p>
-            
             </div>
             <img class="login-close" src="media/close-btn.svg" alt="close">
         </div>
@@ -285,7 +358,7 @@
         <div class="modal-box">
             <div class="modal-body">
                 <h3>Sign Up</h3>
-                <form class="signup-form" name="signupForm" onsubmit="return validateSignup(this);">
+                <form action="index.php" method="post" class="signup-form" name="signupForm" onsubmit="return validateSignup(this);">
                     <div class="form-control" >
                         <label for="username">Username</label>
                         <input type="username" id="signup-username" name="signup-username">
@@ -307,11 +380,38 @@
             <img class="signup-close" src="media/close-btn.svg" alt="close">
         </div>
     </div>
+
+    <!-- PHP PER CONTACT FORM -->
+    <?php 
+        require 'db.php';
+
+            if(isset($_POST['send'])){
+            $name = $_POST['contact-name'];
+            $email = $_POST['contact-email'];
+            $message = $_POST['contact-message'];
+        
+            $sql = 'INSERT into contactus (name, email, message) values (:name, :email, :message)';
+            
+            $query = $pdo->prepare($sql);
+            $query->bindParam('name',$name);
+            $query->bindParam('email',$email);
+            $query->bindParam('message',$message);
+        
+            $query->execute();
+            echo '<script>alert("Thank you for your comment");</script>';
+            header("Location: index.php");
+        }
+
+    ?>
+
+
+
+
     <div class="contact-modal">
         <div class="modal-box">
             <div class="modal-body">
                 <h3>Contact Us</h3>
-                <form class="contact-form" name="contactForm" onsubmit="return validateContact(this);">
+                <form action="index.php" method="post" class="contact-form" name="contactForm" onsubmit="return validateContact(this);">
                     <div class="form-control">
                         <label for="name">Name</label>
                         <input type="name" id="contact-name" name="contact-name">
@@ -333,11 +433,39 @@
             <img class="contact-close" src="media/close-btn.svg" alt="close">
         </div>
     </div>
+
+
+
+
+    <!-- PHP PER BOOKING -->
+    <?php 
+        require 'db.php';
+
+        if(isset($_POST['booking'])){
+            $name = $_POST['booking-name'];
+            $email = $_POST['booking-email'];
+            $date = $_POST['booking-date'];
+            $time = $_POST['booking-time'];
+        
+            $sql = 'INSERT into bookings (name, email, date, time) values (:name, :email, :date, :time)';
+            
+            $query = $pdo->prepare($sql);
+            $query->bindParam('name',$name);
+            $query->bindParam('email',$email);
+            $query->bindParam('date',$date);
+            $query->bindParam('time',$time);
+        
+            $query->execute();
+            echo '<script>alert("Thank you for your booking!");</script>';
+            header("Location: index.php");
+        }
+    ?>
+
     <div class="booking-modal">
         <div class="modal-box">
             <div class="modal-body">
                 <h3>Book a table:</h3>
-                <form class="booking-form" name="bookingForm" onsubmit="return validateBooking(this);">
+                <form action="index.php" method="post" class="booking-form" name="bookingForm" onsubmit="return validateBooking(this);">
                     <div class="form-control">
                         <label for="name">Name</label>
                         <input type="name" id="booking-name" name="booking-name">
@@ -357,7 +485,6 @@
                         <input type="time" id="booking-time" name="booking-time" min="18:00" max="21:00" >
                         <label for="time" id="booking-time-val"></label> 
                     </div>
-                    
                     <button class="btn booking-btn-dark" type="submit" name="booking">Book the table</button>
                 </form>
             </div>

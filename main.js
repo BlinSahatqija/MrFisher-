@@ -1,3 +1,14 @@
+const toggleButton = document.getElementsByClassName('toggle-button')[0]
+const navbarLinks = document.getElementsByClassName('navbar-links')[0]
+
+toggleButton.addEventListener('click', () => {
+  navbarLinks.classList.toggle('active')
+})
+
+
+var bubbleSound = new Audio();
+bubbleSound.src = "media/bubbles-effect.mp3";
+
 //SLIDER
 
 let slidePosition = 0;
